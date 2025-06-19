@@ -84,8 +84,8 @@
          <outputFormat>HTML</outputFormat>
       </outputFormats>
    </configuration>
-   <!--                   Dependency Check Plugin                   -->
-<plugin>
+      <!--                   Dependency Check Plugin                   -->
+    <plugin>
    <groupId>org.owasp</groupId>
    <artifactId>dependency-check-maven</artifactId>
    <version>6.1.6</version>
