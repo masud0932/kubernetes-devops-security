@@ -84,6 +84,7 @@
          <outputFormat>HTML</outputFormat>
       </outputFormats>
    </configuration>
+   </plugin>
       <!--                   Dependency Check Plugin                   -->
         <plugin>
    <groupId>org.owasp</groupId>
@@ -107,10 +108,8 @@
 			                    </suppressionFiles> 
 			                 -->
    </configuration>
-</plugin>
-
-</plugin>
-		</plugins>
-	</build>
+   </plugin>
+</plugins>
+</build>
 
 </project>
