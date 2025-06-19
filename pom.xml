@@ -65,9 +65,8 @@
       </execution>
    </executions>
    </plugin>
-   ## Add PITest Mutation Plugin in pom.xml
-<!--                   PITest Mutation Plugin                   -->
-<plugin>
+   <!--                   PITest Mutation Plugin                   -->
+ <plugin>
    <groupId>org.pitest</groupId>
    <artifactId>pitest-maven</artifactId>
    <version>1.5.0</version>
