@@ -33,10 +33,12 @@ pipeline {
       }
       stage('SonarQube Analysis') {
       steps {
+           withSonarQubeEnv('LocalSonarQube') {
            sh "mvn sonar:sonar \
             -Dsonar.projectKey=jenkins-pipeline \
             -Dsonar.projectName='jenkins-pipeline'"
             }
+      }
     }
     stage('Docker Build and Push') {
       steps {
