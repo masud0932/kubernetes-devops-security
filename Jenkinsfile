@@ -37,9 +37,16 @@ pipeline {
            sh "mvn sonar:sonar \
             -Dsonar.projectKey=jenkins-pipeline \
             -Dsonar.projectName='jenkins-pipeline'"
-            }
+         }
       }
     }
+    stage('Quality Gate') {
+       steps {
+       timeout(time: 2, unit: 'MINUTES') {
+      waitForQualityGate abortPipeline: true
+    }
+  }
+}
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: "docker_credential", url: ""]) {
