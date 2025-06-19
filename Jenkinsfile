@@ -33,7 +33,7 @@ pipeline {
       }
       stage('SonarQube Analysis') {
       steps {
-           withSonarQubeEnv('LocalSonarQube') {
+           withSonarQubeEnv('sonarqube') {
            sh "mvn sonar:sonar \
             -Dsonar.projectKey=jenkins-pipeline \
             -Dsonar.projectName='jenkins-pipeline'"
