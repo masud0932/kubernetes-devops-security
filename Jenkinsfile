@@ -47,18 +47,32 @@ pipeline {
     }
   }
 }
-    stage('Dependency Check') {
-      parallel{
-        steps {
-            "Dependency Check": {
-            sh "mvn dependency-check:check"
-          },
-          "Trivy Scan": {
-            sh "bash trivy-docker-image-scan.sh"
+stage('Security Scans') {
+      parallel {
+        stage('Dependency Check') {
+          steps {
+            sh 'mvn dependency-check:check'
+          }
+          post {
+            always {
+              dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+            }
+          }
+        }
+
+        stage('Trivy Scan') {
+          steps {
+            sh 'bash trivy-docker-image-scan.sh'
+          }
+          post {
+            always {
+              archiveArtifacts artifacts: 'trivy-report.html', allowEmptyArchive: true
+            }
           }
         }
       }
     }
+
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: "docker_credential", url: ""]) {
