@@ -56,7 +56,7 @@ stage('Dependency Check') {
           "Trivy Scan": {
             sh "bash trivy-docker-image-scan.sh"
           },
-          "OPA Conftest": {
+          "OPA Conftest-Docker": {
             sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test Dockerfile --policy dockerfile-security.rego'
           }
         )
@@ -71,7 +71,7 @@ stage('Dependency Check') {
         }
       }
     }
-    stage('Vulnerability Scan - Kubernetes') {
+    stage('OPA Conftest-Kubernetes') {
       steps {
         sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml'
       }
