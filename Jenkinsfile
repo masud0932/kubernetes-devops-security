@@ -87,6 +87,9 @@ stage('Dependency Check') {
           },
           "Kubesec Scan": {
             sh "bash kubesec-scan.sh"
+          },
+          "Trivy Scan-Docker Image": {
+            sh "bash trivy-k8s-scan.sh"
           }
         )
       }
