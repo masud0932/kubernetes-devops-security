@@ -19,7 +19,7 @@ spec:
       - image: replace
         name: devsecops-container
         securityContext:
-          runAsNonRoot: false
+          runAsNonRoot: true
           runAsUser: 100
 ---
 apiVersion: v1
