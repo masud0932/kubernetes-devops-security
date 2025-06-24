@@ -56,8 +56,7 @@ warn contains msg if {
     i := input[_]
     i.Cmd == "run"
     val := concat(" ", i.Value)
-    regex.match(".*?(apk|yum|dnf|apt|pip).+?(install|dist-upgrade|groupupdate|upgrade|update).*"," +
-        " lower(val))
+    regex.match(".*?(apk|yum|dnf|apt|pip).+?(install|dist-upgrade|groupupdate|upgrade|update).*", lower(val))
     msg := sprintf("Line %d: Do not upgrade your system packages: %s", [i.StartLine, val])
 }
 
