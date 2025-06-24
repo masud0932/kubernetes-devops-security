@@ -14,7 +14,7 @@ secrets_env := [
     "tkn"
 ]
 
-deny[msg] if {
+deny contains msg if {
     i := input[_]
     i.Cmd == "env"
     val := i.Value
