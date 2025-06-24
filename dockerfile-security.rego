@@ -23,7 +23,7 @@ deny contains msg if {
 }
 
 # ✅ Only use trusted base images
-deny[msg] if {
+deny contains msg if {
     i := input[_]
     i.Cmd == "from"
     val := split(i.Value[0], "/")
@@ -32,7 +32,7 @@ deny[msg] if {
 }
 
 # ✅ Do not use 'latest' tag for base image
-deny[msg] if {
+deny contains msg if {
     i := input[_]
     i.Cmd == "from"
     val := split(i.Value[0], ":")
@@ -42,7 +42,7 @@ deny[msg] if {
 }
 
 # ✅ Avoid curl bashing
-deny[msg] if {
+deny contains msg if {
     i := input[_]
     i.Cmd == "run"
     val := concat(" ", i.Value)
@@ -52,16 +52,17 @@ deny[msg] if {
 }
 
 # ✅ Do not upgrade your system packages
-warn[msg] if {
+warn contains msg if {
     i := input[_]
     i.Cmd == "run"
     val := concat(" ", i.Value)
-    regex.match(".*?(apk|yum|dnf|apt|pip).+?(install|dist-upgrade|groupupdate|upgrade|update).*", lower(val))
+    regex.match(".*?(apk|yum|dnf|apt|pip).+?(install|dist-upgrade|groupupdate|upgrade|update).*"," +
+        " lower(val))
     msg := sprintf("Line %d: Do not upgrade your system packages: %s", [i.StartLine, val])
 }
 
 # ✅ Do not use ADD if possible
-deny[msg] if {
+deny contains msg if {
     i := input[_]
     i.Cmd == "add"
     msg := sprintf("Line %d: Use COPY instead of ADD", [i.StartLine])
@@ -73,7 +74,7 @@ any_user if {
     input[i].Cmd == "user"
 }
 
-deny[msg] if {
+deny contains msg if {
     not any_user
     msg := "Do not run as root, use USER instead"
 }
@@ -85,7 +86,7 @@ forbidden_users := [
     "0"
 ]
 
-deny[msg] if {
+deny contains msg if {
     users := [name | i := input[_]; i.Cmd == "user"; name := i.Value[0]]
     count(users) > 0
     lastuser := users[count(users)-1]
@@ -94,7 +95,7 @@ deny[msg] if {
 }
 
 # ✅ Do not use sudo
-deny[msg] if {
+deny contains msg if {
     i := input[_]
     i.Cmd == "run"
     val := concat(" ", i.Value)
@@ -112,7 +113,7 @@ multi_stage if {
     contains(lower(val), "--from=")
 }
 
-deny[msg] if {
+deny contains msg if {
     not multi_stage
     msg := "You COPY, but do not appear to use multi-stage builds..."
 }
