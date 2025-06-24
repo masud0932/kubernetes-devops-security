@@ -14,7 +14,7 @@ secrets_env = [
     "tkn"
 ]
 
-deny[msg] {    
+deny[msg] if {    
     input[i].Cmd == "env"
     val := input[i].Value
     contains(lower(val[_]), secrets_env[_])
@@ -22,7 +22,7 @@ deny[msg] {
 }
 
 # Only use trusted base images
-deny[msg] {
+deny[msg] if {
     input[i].Cmd == "from"
     val := split(input[i].Value[0], "/")
     count(val) > 1
@@ -30,7 +30,7 @@ deny[msg] {
 }
 
 # Do not use 'latest' tag for base imagedeny[msg] {
-deny[msg] {
+deny[msg] if {
     input[i].Cmd == "from"
     val := split(input[i].Value[0], ":")
     contains(lower(val[1]), "latest")
@@ -38,7 +38,7 @@ deny[msg] {
 }
 
 # Avoid curl bashing
-deny[msg] {
+deny[msg] if {
     input[i].Cmd == "run"
     val := concat(" ", input[i].Value)
     matches := regex.find_n("(curl|wget)[^|^>]*[|>]", lower(val), -1)
@@ -56,7 +56,7 @@ warn[msg] {
 }
 
 # Do not use ADD if possible
-deny[msg] {
+deny[msg] if {
     input[i].Cmd == "add"
     msg = sprintf("Line %d: Use COPY instead of ADD", [i])
 }
@@ -66,7 +66,7 @@ any_user {
     input[i].Cmd == "user"
  }
 
-deny[msg] {
+deny[msg] if {
     not any_user
     msg = "Do not run as root, use USER instead"
 }
@@ -78,7 +78,7 @@ forbidden_users = [
     "0"
 ]
 
-deny[msg] {
+deny[msg] if {
     command := "user"
     users := [name | input[i].Cmd == "user"; name := input[i].Value]
     lastuser := users[count(users)-1]
@@ -87,7 +87,7 @@ deny[msg] {
 }
 
 # Do not sudo
-deny[msg] {
+deny[msg] if {
     input[i].Cmd == "run"
     val := concat(" ", input[i].Value)
     contains(lower(val), "sudo")
@@ -101,7 +101,7 @@ multi_stage = true {
     val := concat(" ", input[i].Flags)
     contains(lower(val), "--from=")
 }
-deny[msg] {
+deny[msg] if {
     multi_stage == false
     msg = sprintf("You COPY, but do not appear to use multi-stage builds...", [])
 }
