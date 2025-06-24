@@ -47,7 +47,7 @@ deny[msg] if {
 }
 
 # Do not upgrade your system packages
-warn[msg] {
+warn[msg] if {
     input[i].Cmd == "run"
     val := concat(" ", input[i].Value)
     matches := regex.match(".*?(apk|yum|dnf|apt|pip).+?(install|[dist-|check-|group]?up[grade|date]).*", lower(val))
@@ -62,7 +62,7 @@ deny[msg] if {
 }
 
 # Any user...
-any_user {
+any_user if {
     input[i].Cmd == "user"
  }
 
@@ -96,7 +96,7 @@ deny[msg] if {
 
 # Use multi-stage builds
 default multi_stage = false
-multi_stage = true {
+multi_stage = true if {
     input[i].Cmd == "copy"
     val := concat(" ", input[i].Flags)
     contains(lower(val), "--from=")
