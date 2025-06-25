@@ -25,7 +25,7 @@ pipeline {
     }
     stage('Mutation Tests - PIT') {
       steps {
-        sh "mvn org.pitest:pitest-maven:mutationCoverage"
+        sh "mvn -X org.pitest:pitest-maven:mutationCoverage"
       }
       }
       stage('SonarQube Analysis') {
