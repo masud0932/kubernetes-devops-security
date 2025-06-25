@@ -20,7 +20,7 @@ pipeline {
 
     stage('Unit Tests - JUnit and Jacoco') {
       steps {
-        sh "mvn clean test"
+        sh "mvn test"
       }
     }
     stage('Mutation Tests - PIT') {
