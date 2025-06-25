@@ -63,6 +63,40 @@
                     <release>21</release>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.15.2</version> <!-- ✅ Works with Java 21 -->
+            <dependencies>
+                <dependency>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-junit5-plugin</artifactId>
+                <version>0.15</version> <!-- ✅ Compatible with recent JUnit 5 -->
+                </dependency>
+            </dependencies>
+            <configuration>
+                <targetClasses>
+                <param>com.devsecops.*</param>
+                </targetClasses>
+                <targetTests>
+                <param>com.devsecops.*</param>
+                </targetTests>
+                <mutationEngine>gregor</mutationEngine>
+            <mutators>
+                <mutator>DEFAULTS</mutator>
+            </mutators>
+            <outputFormats>
+                <outputFormat>HTML</outputFormat>
+                <outputFormat>XML</outputFormat>
+            </outputFormats>
+            <mutationThreshold>70</mutationThreshold>
+                <jvmArgs>
+                <jvmArg>--add-opens</jvmArg>
+                <jvmArg>java.base/java.lang=ALL-UNNAMED</jvmArg>
+                </jvmArgs>
+                <testPlugin>junit5</testPlugin>
+            </configuration>
+            </plugin>
 
             <!-- OWASP Dependency Check -->
             <plugin>
