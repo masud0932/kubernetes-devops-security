@@ -99,6 +99,7 @@ stage('Dependency Check') {
         )
       }
     }
+  }
     post {
     always {
       junit 'target/surefire-reports/*.xml'
@@ -108,4 +109,3 @@ stage('Dependency Check') {
      }
    }
   }
-}
