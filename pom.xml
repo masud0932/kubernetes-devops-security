@@ -18,7 +18,8 @@
     <description>Demo for DevSecOps</description>
 
     <properties>
-        <java.version>17</java.version> <!-- FIXED -->
+        <java.version>17.0.15</java.version> <!-- FIXED -->
+        <tomcat.version>11.0.0</tomcat.version> <!-- ✅ latest -->
     </properties>
 
     <dependencies>
