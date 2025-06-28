@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  tools {
+        maven 'maven' // Must match the name you used above
+    }
   environment {
     deploymentName = "devsecops"
     containerName = "devsecops-container"

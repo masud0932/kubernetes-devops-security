@@ -14,6 +14,7 @@
     <groupId>com.devsecops</groupId>
     <artifactId>numeric</artifactId>
     <version>0.0.1</version>
+    
     <name>numeric</name>
     <description>Demo for DevSecOps</description>
 
@@ -63,6 +64,7 @@
                     <release>21</release>
                 </configuration>
             </plugin>
+
             <!-- pitest -->
             <plugin>
   <groupId>org.pitest</groupId>
