@@ -20,7 +20,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: devsecops-container
-          image: masudrana09/numeric-app:${GIT_COMMIT}
+          image: masudrana09/numeric-app:latest
           ports:
             - containerPort: 8082
           volumeMounts:

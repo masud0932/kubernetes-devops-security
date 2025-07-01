@@ -4,7 +4,7 @@ pipeline {
     deploymentName = "devsecops"
     containerName = "devsecops-container"
     serviceName = "devsecops-svc"
-    imageName = "masudrana09/numeric-app:${GIT_COMMIT}"
+    imageName = "masudrana09/numeric-app:latest"
     applicationURL = "http://devsecops.eastus.cloudapp.azure.com"
     applicationURI = "/increment/99"
   }
@@ -72,8 +72,8 @@ stage('Dependency Check') {
       steps {
         withDockerRegistry([credentialsId: "docker_credential", url: ""]) {
           sh 'printenv'
-          sh "sudo docker build -t masudrana09/numeric-app:${GIT_COMMIT} ."
-          sh "docker push masudrana09/numeric-app:${GIT_COMMIT}"
+          sh "sudo docker build -t masudrana09/numeric-app:latest ."
+          sh "docker push masudrana09/numeric-app:latest"
         }
       }
     }
