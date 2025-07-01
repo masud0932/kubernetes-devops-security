@@ -48,6 +48,16 @@
 
     <build>
         <plugins>
+
+        <plugin>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-maven-plugin</artifactId>
+  <version>3.2.5</version>
+  <configuration>
+    <mainClass>com.devsecops.NumericApplication</mainClass> <!-- 🔁 update if your class name is different -->
+  </configuration>
+</plugin>
+
             <!-- Spring Boot Plugin: required to build executable JAR -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
