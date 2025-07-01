@@ -115,8 +115,6 @@
       </jvmArgs>
    </configuration>
 </plugin>
-
-</plugin>
             <!-- OWASP Dependency Check -->
             <plugin>
                 <groupId>org.owasp</groupId>
