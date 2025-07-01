@@ -65,40 +65,57 @@
                 </configuration>
             </plugin>
 
-            <!-- pitest -->
-            <plugin>
-  <groupId>org.pitest</groupId>
-  <artifactId>pitest-maven</artifactId>
-  <version>1.15.2</version>
-  <dependencies>
-    <dependency>
-      <groupId>org.pitest</groupId>
-      <artifactId>pitest-junit5-plugin</artifactId>
-      <version>0.15</version>
-    </dependency>
-  </dependencies>
-  <configuration>
-    <targetClasses>
-      <param>com.devsecops.*</param>
-    </targetClasses>
-    <targetTests>
-      <param>com.devsecops.*</param>
-    </targetTests>
-    <testPlugin>junit5</testPlugin>
-    <mutationThreshold>70</mutationThreshold>
-    <outputFormats>
-      <outputFormat>HTML</outputFormat>
-      <outputFormat>XML</outputFormat>
-    </outputFormats>
-    <jvmArgs>
-      <jvmArg>--add-opens</jvmArg>
-      <jvmArg>java.base/java.lang=ALL-UNNAMED</jvmArg>
-      <jvmArg>--add-opens</jvmArg>
-      <jvmArg>java.base/java.util=ALL-UNNAMED</jvmArg>
-      <jvmArg>--add-opens</jvmArg>
-      <jvmArg>java.base/java.io=ALL-UNNAMED</jvmArg>
-    </jvmArgs>
-  </configuration>
+<!-- Jacoco Plugin (Java 21 compatible) -->
+<plugin>
+   <groupId>org.jacoco</groupId>
+   <artifactId>jacoco-maven-plugin</artifactId>
+   <version>0.8.10</version> <!-- ✅ updated -->
+   <executions>
+      <execution>
+         <goals>
+            <goal>prepare-agent</goal>
+         </goals>
+      </execution>
+      <execution>
+         <id>report</id>
+         <phase>test</phase>
+         <goals>
+            <goal>report</goal>
+         </goals>
+      </execution>
+   </executions>
+</plugin>
+
+<!-- PITest Mutation Plugin (Java 21 compatible) -->
+<plugin>
+   <groupId>org.pitest</groupId>
+   <artifactId>pitest-maven</artifactId>
+   <version>1.15.2</version> <!-- ✅ updated -->
+   <dependencies>
+      <dependency>
+         <groupId>org.pitest</groupId>
+         <artifactId>pitest-junit5-plugin</artifactId>
+         <version>1.2.1</version> <!-- ✅ updated -->
+      </dependency>
+   </dependencies>
+   <configuration>
+      <mutationThreshold>70</mutationThreshold>
+      <outputFormats>
+         <outputFormat>XML</outputFormat>
+         <outputFormat>HTML</outputFormat>
+      </outputFormats>
+      <targetClasses>
+         <param>com.yourpackage.*</param> <!-- 🔁 Replace with your package -->
+      </targetClasses>
+      <targetTests>
+         <param>com.yourpackage.*</param> <!-- 🔁 Replace with your test package -->
+      </targetTests>
+      <jvmArgs>
+         <jvmArg>--add-opens=java.base/java.lang=ALL-UNNAMED</jvmArg>
+      </jvmArgs>
+   </configuration>
+</plugin>
+
 </plugin>
             <!-- OWASP Dependency Check -->
             <plugin>
