@@ -9,26 +9,27 @@ spec:
   selector:
     matchLabels:
       app: devsecops
-  strategy: {}
   template:
     metadata:
       labels:
         app: devsecops
     spec:
       volumes:
-      - name: vol
-        emptyDir: {}
+        - name: vol
+          emptyDir: {}
       serviceAccountName: default
-containers:
-  - image: replace
-    name: devsecops-container
-    volumeMounts:
-      - mountPath: /tmp
-        name: vol
-    securityContext:
-      runAsNonRoot: true
-      runAsUser: 100
-      readOnlyRootFilesystem: true
+      containers:
+        - name: devsecops-container
+          image: your-dockerhub-username/your-image-name:latest
+          ports:
+            - containerPort: 8082
+          volumeMounts:
+            - mountPath: /tmp
+              name: vol
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 100
+            readOnlyRootFilesystem: true
 ---
 apiVersion: v1
 kind: Service
@@ -38,9 +39,10 @@ metadata:
   name: devsecops-svc
 spec:
   ports:
-  - port: 8082
-    protocol: TCP
-    targetPort: 8082
+    - port: 8082
+      protocol: TCP
+      targetPort: 8082
+      nodePort: 30080   # optional
   selector:
     app: devsecops
   type: NodePort

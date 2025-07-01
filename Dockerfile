@@ -12,7 +12,7 @@ RUN chmod 755 /home/k8s-pipeline/app.jar \
 USER k8s-pipeline
 
 # Expose port
-EXPOSE 8083
+EXPOSE 8082
 
 # Run app
 ENTRYPOINT ["java", "-jar", "/home/k8s-pipeline/app.jar"]
