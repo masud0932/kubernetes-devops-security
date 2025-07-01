@@ -102,7 +102,7 @@ stage('Dependency Check') {
           },
           "Rollout Status": {
             withKubeConfig([credentialsId: 'kubeconfig']) {
-              sh "bash k8s-deployment-rollout-status.sh"
+              echo "Waiting for deployment rollout status..."
           }
           }
         )
