@@ -1,8 +1,5 @@
 pipeline {
   agent any
-  tools {
-        maven 'maven' // Must match the name you used above
-    }
   environment {
     deploymentName = "devsecops"
     containerName = "devsecops-container"
@@ -13,7 +10,13 @@ pipeline {
   }
 
   stages {
-
+ 
+      stage('Maven version check') {
+        steps {
+          sh "mvn --version"
+        }
+      }
+    
     stage('Build Artifact - Maven') {
       steps {
         sh "mvn clean package -DskipTests=true"
