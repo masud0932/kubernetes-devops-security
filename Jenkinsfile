@@ -8,6 +8,9 @@ pipeline {
     applicationURL = "http://devsecops.eastus.cloudapp.azure.com"
     applicationURI = "/increment/99"
   }
+  tools {
+    maven 'maven'
+    }
 
   stages {
  
