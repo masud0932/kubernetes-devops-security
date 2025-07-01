@@ -105,10 +105,10 @@
          <outputFormat>HTML</outputFormat>
       </outputFormats>
       <targetClasses>
-         <param>com.yourpackage.*</param> <!-- 🔁 Replace with your package -->
+         <param>com.devsecops.*</param> <!-- 🔁 Replace with your package -->
       </targetClasses>
       <targetTests>
-         <param>com.yourpackage.*</param> <!-- 🔁 Replace with your test package -->
+         <param>com.devsecops.*</param> <!-- 🔁 Replace with your test package -->
       </targetTests>
       <jvmArgs>
          <jvmArg>--add-opens=java.base/java.lang=ALL-UNNAMED</jvmArg>
