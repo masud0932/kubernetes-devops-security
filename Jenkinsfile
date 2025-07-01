@@ -97,7 +97,7 @@ stage('Dependency Check') {
         parallel(
           "Deployment": {
             withKubeConfig([credentialsId: 'kubeconfig']) {
-              sh "bash k8s-deployment.sh"
+              sh "kubectl apply -f k8s_deployment_service.yaml"
             }
           },
           "Rollout Status": {
