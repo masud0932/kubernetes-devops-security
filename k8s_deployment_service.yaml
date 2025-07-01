@@ -20,7 +20,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: devsecops-container
-          image: your-dockerhub-username/your-image-name:latest
+          image: replace  # This will be replaced by the actual image name during deployment
           ports:
             - containerPort: 8082
           volumeMounts:
