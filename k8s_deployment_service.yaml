@@ -28,7 +28,8 @@ spec:
               name: vol
           securityContext:
             runAsNonRoot: true
-            runAsUser: 100
+            runAsUser: k8s-pipeline
+            runAsGroup: pipeline
             readOnlyRootFilesystem: true
 ---
 apiVersion: v1
