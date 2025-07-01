@@ -49,23 +49,28 @@
     <build>
         <plugins>
 
-        <plugin>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-maven-plugin</artifactId>
-  <version>3.2.5</version>
-  <configuration>
-    <mainClass>com.devsecops.NumericApplication</mainClass> <!-- 🔁 update if your class name is different -->
-  </configuration>
-</plugin>
-
-            <!-- Spring Boot Plugin: required to build executable JAR -->
+            <!-- ✅ Spring Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.2.5</version>
             </plugin>
 
-            <!-- Compiler plugin for Java 21 -->
+            <!-- ✅ JAR Plugin: Needed to set Main-Class -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.devsecops.NumericApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!-- ✅ Compiler Plugin for Java 21 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -75,67 +80,68 @@
                 </configuration>
             </plugin>
 
-<!-- Jacoco Plugin (Java 21 compatible) -->
-<plugin>
-   <groupId>org.jacoco</groupId>
-   <artifactId>jacoco-maven-plugin</artifactId>
-   <version>0.8.10</version> <!-- ✅ updated -->
-   <executions>
-      <execution>
-         <goals>
-            <goal>prepare-agent</goal>
-         </goals>
-      </execution>
-      <execution>
-         <id>report</id>
-         <phase>test</phase>
-         <goals>
-            <goal>report</goal>
-         </goals>
-      </execution>
-   </executions>
-</plugin>
+            <!-- ✅ Jacoco Plugin -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-<!-- PITest Mutation Plugin (Java 21 compatible) -->
-<plugin>
-   <groupId>org.pitest</groupId>
-   <artifactId>pitest-maven</artifactId>
-   <version>1.15.2</version> <!-- ✅ updated -->
-   <dependencies>
-      <dependency>
-         <groupId>org.pitest</groupId>
-         <artifactId>pitest-junit5-plugin</artifactId>
-         <version>1.2.1</version> <!-- ✅ updated -->
-      </dependency>
-   </dependencies>
-   <configuration>
-      <mutationThreshold>70</mutationThreshold>
-      <outputFormats>
-         <outputFormat>XML</outputFormat>
-         <outputFormat>HTML</outputFormat>
-      </outputFormats>
-      <targetClasses>
-         <param>com.devsecops.*</param> <!-- 🔁 Replace with your package -->
-      </targetClasses>
-      <targetTests>
-         <param>com.devsecops.*</param> <!-- 🔁 Replace with your test package -->
-      </targetTests>
-      <jvmArgs>
-         <jvmArg>--add-opens=java.base/java.lang=ALL-UNNAMED</jvmArg>
-      </jvmArgs>
-   </configuration>
-</plugin>
-            <!-- OWASP Dependency Check -->
+            <!-- ✅ PITest Mutation Testing -->
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.15.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.2.1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <mutationThreshold>70</mutationThreshold>
+                    <outputFormats>
+                        <outputFormat>XML</outputFormat>
+                        <outputFormat>HTML</outputFormat>
+                    </outputFormats>
+                    <targetClasses>
+                        <param>com.devsecops.*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>com.devsecops.*</param>
+                    </targetTests>
+                    <jvmArgs>
+                        <jvmArg>--add-opens=java.base/java.lang=ALL-UNNAMED</jvmArg>
+                    </jvmArgs>
+                </configuration>
+            </plugin>
+
+            <!-- ✅ OWASP Dependency Check -->
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
                 <version>12.1.0</version>
-                    <configuration>
+                <configuration>
                     <format>ALL</format>
                     <failBuildOnCVSS>10</failBuildOnCVSS>
-                    <!-- fail the build for CVSS greater than or equal to 5 -->
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
