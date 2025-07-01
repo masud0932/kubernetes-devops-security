@@ -13,6 +13,8 @@ USER k8s-pipeline
 
 # Expose port
 EXPOSE 8082
+# Set working directory
+WORKDIR /home/k8s-pipeline
 
 # Run app
 ENTRYPOINT ["java", "-jar", "/home/k8s-pipeline/app.jar"]

@@ -21,7 +21,6 @@ spec:
       containers:
         - name: devsecops-container
           image: masudrana09/numeric-app:latest
-          command: ["java", "-jar", "/home/k8s-pipeline/app.jar"]
           ports:
             - containerPort: 8081
           volumeMounts:
