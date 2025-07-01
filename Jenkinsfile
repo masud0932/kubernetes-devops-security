@@ -72,8 +72,8 @@ stage('Dependency Check') {
       steps {
         withDockerRegistry([credentialsId: "docker_credential", url: ""]) {
           sh 'printenv'
-          sh 'sudo docker build -t masudrana09/numeric-app:""$GIT_COMMIT"" .'
-          sh 'docker push masudrana09/numeric-app:""$GIT_COMMIT""'
+          sh "sudo docker build -t masudrana09/numeric-app:${GIT_COMMIT} ."
+          sh "docker push masudrana09/numeric-app:${GIT_COMMIT}"
         }
       }
     }
