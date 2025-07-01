@@ -22,7 +22,7 @@ spec:
         - name: devsecops-container
           image: masudrana09/numeric-app:latest
           ports:
-            - containerPort: 8082
+            - containerPort: 8081
           volumeMounts:
             - mountPath: /tmp
               name: vol
@@ -39,9 +39,9 @@ metadata:
   name: devsecops-svc
 spec:
   ports:
-    - port: 8082
+    - port: 8081
       protocol: TCP
-      targetPort: 8082
+      targetPort: 8081
       nodePort: 30080   # optional
   selector:
     app: devsecops
