@@ -28,7 +28,7 @@ spec:
               name: vol
           securityContext:
             securityContext:
-              runAsUser: 100
+              runAsUser: 1010
               runAsGroup: 3010
               runAsNonRoot: true
               readOnlyRootFilesystem: true
