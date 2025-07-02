@@ -4,19 +4,13 @@ FROM eclipse-temurin:21-jdk
 EXPOSE 8081
 
 # Argument to get the JAR file (from build context)
-ARG JAR_FILE=target/*.jar
+ARG JAR_FILE=target/numeric-0.0.1.jar
 
 # Create group and user (auto-assign UID/GID unless specified)
 RUN groupadd -r pipeline && useradd -m -r -g pipeline k8s-pipeline
 
 # Copy JAR into user's home directory
-COPY ${JAR_FILE} /home/k8s-pipeline/app.jar
-
-# Set ownership and permissions (optional but recommended)
-RUN chown k8s-pipeline:pipeline /home/k8s-pipeline/app.jar
-
-# Set working directory
-WORKDIR /home/k8s-pipeline
+COPY ${JAR_FILE} app.jar
 
 # Switch to non-root user
 USER k8s-pipeline
