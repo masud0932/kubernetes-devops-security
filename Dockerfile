@@ -22,5 +22,5 @@ RUN chown k8s-pipeline:pipeline app.jar
 USER k8s-pipeline
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar"]
 
