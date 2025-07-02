@@ -38,7 +38,7 @@ public class NumericController {
 
 		@GetMapping("/increment/{value}")
 		public int increment(@PathVariable int value) {
-			ResponseEntity<String> responseEntity = restTemplate.getForEntity(baseURL + '/' + value, String.class);
+			ResponseEntity<String> responseEntity = restTemplate.getForEntity(BASE_URL + '/' + value, String.class);
 			String response = responseEntity.getBody();
 			logger.info("Value Received in Request - {}", value);
 			logger.info("Node Service Response - {}", response);
