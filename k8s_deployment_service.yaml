@@ -27,6 +27,7 @@ spec:
             - mountPath: /tmp
               name: vol
           securityContext:
+            runAsNonRoot: true
             runAsUser: k8s-pipeline
             runAsGroup: pipeline
             
