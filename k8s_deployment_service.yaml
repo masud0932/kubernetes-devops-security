@@ -19,8 +19,6 @@ spec:
       - image: masudrana09/numeric-app:latest
         name: devsecops-container
         workingDir: /home/k8s-pipeline
-        command: ["java"]
-        args: ["-jar", "app.jar"]
       securityContext:
           runAsNonRoot: true
           runAsUser: 100
