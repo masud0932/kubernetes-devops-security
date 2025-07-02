@@ -71,7 +71,7 @@ stage('Dependency Check') {
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: "docker_credential", url: ""]) {
-          sh 'printenv'
+          sh "printenv"
           sh "sudo docker build -t masudrana09/numeric-app:latest ."
           sh "docker push masudrana09/numeric-app:latest"
         }
@@ -81,7 +81,7 @@ stage('Dependency Check') {
       steps {
         parallel(
           "OPA Scan": {
-             echo "i love you opa"
+             echo "docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml"
           },
           "Kubesec Scan": {
             sh "bash kubesec-scan.sh"
