@@ -25,7 +25,7 @@ public class NumericController {
 			return "Kubernetes DevSecOps";
 		}
 
-		@GetMapping("/Compare/{value}")
+		@GetMapping("/compare/{value}")
 		public String CompareToFifty(@PathVariable int value) {
 			String message = "Could not determine comparison";
 			if (value > 50) {
