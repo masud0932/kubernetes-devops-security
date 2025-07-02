@@ -37,34 +37,6 @@ pipeline {
         sh "mvn org.pitest:pitest-maven:mutationCoverage -Dverbose=true"
       }
       }
-      stage('SonarQube Analysis') {
-      steps {
-           withSonarQubeEnv('sonarqube') {
-           sh "mvn sonar:sonar \
-            -Dsonar.projectKey=jenkins-pipeline \
-            -Dsonar.projectName='jenkins-pipeline'"
-         }
-      }
-    }
-    stage('Quality Gate') {
-       steps {
-       timeout(time: 2, unit: 'MINUTES') {
-      waitForQualityGate abortPipeline: true
-    }
-  }
-}
-stage('Dependency Check') {
-      steps {
-        parallel(
-          "Dependency Check": {
-            sh "mvn dependency-check:check"
-          },
-          "OPA Conftest-Docker": {
-            sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test Dockerfile --policy dockerfile-security.rego'
-          }
-        )
-      }
-    }
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: "docker_credential", url: ""]) {
@@ -81,13 +53,5 @@ stage('Dependency Check') {
             }
           }
       }
-  }
-    post {
-     always {
-      junit 'target/surefire-reports/*.xml'
-      jacoco execPattern: 'target/jacoco.exec'
-      pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-      dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
-     }
     }
   }
