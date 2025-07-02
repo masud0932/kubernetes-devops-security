@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jdk
+FROM eclipse-temurin:21-jdk-alpine
 
 # Expose application port
 EXPOSE 8081
