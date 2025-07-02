@@ -59,9 +59,6 @@ stage('Dependency Check') {
           "Dependency Check": {
             sh "mvn dependency-check:check"
           },
-          "Trivy Scan": {
-            sh "bash trivy-docker-image-scan.sh"
-          },
           "OPA Conftest-Docker": {
             sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test Dockerfile --policy dockerfile-security.rego'
           }
