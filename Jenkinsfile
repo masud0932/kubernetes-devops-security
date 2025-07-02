@@ -94,21 +94,11 @@ stage('Dependency Check') {
     }
     stage('K8S Deployment - DEV') {
       steps {
-        parallel(
-          "Deployment": {
-            withKubeConfig([credentialsId: 'kubeconfig']) {
+              withKubeConfig([credentialsId: 'kubeconfig']) {
               sh "kubectl apply -f k8s_deployment_service.yaml"
             }
-          },
-          "Rollout Status": {
-            withKubeConfig([credentialsId: 'kubeconfig']) {
-              echo "Waiting for deployment rollout status..."
           }
-          }
-        )
       }
-    }
- }
     post {
      always {
       junit 'target/surefire-reports/*.xml'
