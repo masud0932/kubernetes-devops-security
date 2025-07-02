@@ -81,7 +81,7 @@ stage('Dependency Check') {
       steps {
         parallel(
           "OPA Scan": {
-             echo "docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml"
+             echo "i love you opa"
           },
           "Kubesec Scan": {
             sh "bash kubesec-scan.sh"
