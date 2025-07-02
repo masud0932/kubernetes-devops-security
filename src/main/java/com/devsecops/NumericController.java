@@ -26,8 +26,8 @@ public class NumericController {
 		}
 
 		@GetMapping("/compare/{value}")
-		public String CompareToFifty(@PathVariable int value) {
-			String message = "Could not determine comparison";
+		public String compareToFifty(@PathVariable int value) {
+			String message;
 			if (value > 50) {
 				message = "Greater than 50";
 			} else {
