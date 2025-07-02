@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: devsecops
+     app: devsecops
   name: devsecops
 spec:
   replicas: 2
@@ -14,14 +14,14 @@ spec:
     metadata:
       labels:
         app: devsecops
-    spec:
-      containers:
-      - image: masudrana09/numeric-app:latest
-        name: devsecops-container
-        workingDir: /home/k8s-pipeline
-      securityContext:
-          runAsNonRoot: true
-          runAsUser: 100
+      spec:
+       containers:
+         - name: devsecops-container
+           image: masudrana09/numeric-app:latest
+           workingDir: /home/k8s-pipeline
+           securityContext:
+             runAsNonRoot: true
+             runAsUser: 100
           
 ---
 apiVersion: v1
@@ -29,7 +29,7 @@ kind: Service
 metadata:
   labels:
     app: devsecops
-  name: devsecops-svc
+    name: devsecops-svc
 spec:
   ports:
   - port: 8081
