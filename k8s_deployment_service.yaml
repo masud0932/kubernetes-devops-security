@@ -27,10 +27,12 @@ spec:
             - mountPath: /tmp
               name: vol
           securityContext:
-            runAsNonRoot: true
-            runAsUser: k8s-pipeline
-            runAsGroup: pipeline
-            
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 3000
+              runAsNonRoot: true
+              readOnlyRootFilesystem: true
+           
 ---
 apiVersion: v1
 kind: Service
