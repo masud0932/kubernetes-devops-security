@@ -7,7 +7,7 @@ EXPOSE 8081
 ARG JAR_FILE=target/*.jar
 
 # Create non-root group and user
-RUN groupadd -r pipeline && useradd -m -r -g pipeline k8s-pipeline
+RUN addgroup -S pipeline && adduser -S -G pipeline k8s-pipeline
 
 # Set working directory to the new user's home
 WORKDIR /home/k8s-pipeline
