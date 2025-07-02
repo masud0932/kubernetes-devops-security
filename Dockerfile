@@ -11,6 +11,8 @@ COPY target/numeric-0.0.1.jar /home/k8s-pipeline/app.jar
 RUN chmod 755 /home/k8s-pipeline/app.jar \
     && chown k8s-pipeline:pipeline /home/k8s-pipeline/app.jar
 
+USER k8s-pipeline
+
 # Expose port
 EXPOSE 8082
 # Set working directory
