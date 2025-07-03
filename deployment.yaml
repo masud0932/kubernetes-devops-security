@@ -17,7 +17,7 @@ spec:
       containers:
         - name: devsecops-container
           image: masudrana09/numeric-app:latest
-          workingDir: /home/k8s-user
+          #workingDir: /home/k8s-user
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
