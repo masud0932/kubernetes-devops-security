@@ -19,16 +19,17 @@ pipeline {
       }
     }
 
-    stage('Docker Build and Push') {
-      steps {
-        withDockerRegistry([credentialsId: "docker_credential", url: ""]) {
-          sh "printenv"
-          sh "cd k8s-Deployment/"
-          sh "docker build -t masudrana09/numeric-app:latest ."
-          sh "docker push masudrana09/numeric-app:latest"
-        }
+stage('Docker Build and Push') {
+  steps {
+    withDockerRegistry([credentialsId: "docker_credential", url: ""]) {
+      dir('k8s-Deployment') {
+        sh "printenv"
+        sh "docker build -t masudrana09/numeric-app:latest ."
+        sh "docker push masudrana09/numeric-app:latest"
       }
     }
+  }
+}
     stage('K8S Deployment - DEV') {
       steps {
               withKubeConfig([credentialsId: 'kubeconfig']) {
