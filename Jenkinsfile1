@@ -1,5 +1,15 @@
 pipeline {
   agent any
+
+    environment {
+    //deploymentName = "devsecops"
+    //containerName = "devsecops-container"
+    serviceName = "devsecops-service"
+    //imageName = "masudrana09/numeric-app:latest"
+    applicationURL = "http://devsecops.eastus.cloudapp.azure.com"
+    applicationURI = "/increment/99"
+  }
+
   tools {
     maven 'maven'
     }
@@ -67,6 +77,23 @@ stage('Docker Build and Push') {
             }
           }
         )
+      }
+    }
+
+        stage('Integration Tests - DEV') {
+      steps {
+        script {
+          try {
+            withKubeConfig([credentialsId: 'kubeconfig']) {
+              sh "bash integration-test.sh"
+            }
+          } catch (e) {
+            withKubeConfig([credentialsId: 'kubeconfig']) {
+              sh "kubectl -n default rollout undo deploy devsecops-deployment"
+            }
+            throw e
+          }
+        }
       }
     }
   }
