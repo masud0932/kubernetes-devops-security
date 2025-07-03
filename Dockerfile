@@ -1,7 +1,7 @@
 FROM eclipse-temurin:21-jdk-alpine
 
 # Argument to get the JAR file from build context
-ARG JAR_FILE=target/numeric-0.0.1.jar
+ARG JAR_FILE=target/number1.jar
 
 # Create group with GID 3000 and user with UID 1000
 RUN addgroup -g 3000 -S k8s-group && \
