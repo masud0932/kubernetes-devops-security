@@ -11,6 +11,7 @@ RUN addgroup -g 3000 -S k8s-group && \
 WORKDIR /home/k8s-user
 
 # Copy the JAR into the working directory (relative path)
+RUN cd /k8s-Deployment
 COPY target/numeric-0.0.1.jar /home/k8s-user/app.jar
 
 # Set permissions
