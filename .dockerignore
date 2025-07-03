@@ -1,0 +1,6 @@
+trivy
+*.scan
+*.report
+target/
+.git/
+.idea/
