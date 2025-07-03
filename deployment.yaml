@@ -14,10 +14,16 @@ spec:
       labels:
           app: devsecops
     spec:
+      volumes:
+        - name: config-volume
+          emptyDir: {}
       serviceAccountName: default
       containers:
         - name: devsecops-container
           image: masudrana09/numeric-app:latest
+          volumeMounts:
+            - name: config-volume
+              mountPath: /tmp
           #workingDir: /home/k8s-user
           securityContext:
             runAsNonRoot: true
