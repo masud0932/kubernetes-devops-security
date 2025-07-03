@@ -1,10 +1,10 @@
 #!/bin/bash
 
 
-echo $imageName #getting Image name from env variable
+echo masudrana09/numeric-app:latest #getting Image name from env variable
 
-docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 0 --severity LOW,MEDIUM,HIGH --light $imageName
-docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 1 --severity CRITICAL --light $imageName
+docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 0 --severity LOW,MEDIUM,HIGH --light masudrana09/numeric-app:latest
+docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 1 --severity CRITICAL --light masudrana09/numeric-app:latest
 
     # Trivy scan result processing
     exit_code=$?
