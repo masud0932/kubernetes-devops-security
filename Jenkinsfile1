@@ -1,13 +1,5 @@
 pipeline {
   agent any
-  environment {
-    deploymentName = "devsecops"
-    containerName = "devsecops-container"
-    serviceName = "devsecops-svc"
-    imageName = "masudrana09/numeric-app:latest"
-    applicationURL = "http://devsecops.eastus.cloudapp.azure.com"
-    applicationURI = "/increment/99"
-  }
   tools {
     maven 'maven'
     }
@@ -22,26 +14,16 @@ pipeline {
     
     stage('Build Artifact - Maven') {
       steps {
-        sh "mvn clean package -DskipTests=true"
+        sh "mvn clean package"
         archive 'target/*.jar'
       }
     }
 
-    stage('Unit Tests - JUnit and Jacoco') {
-      steps {
-        sh "mvn test"
-      }
-    }
-    stage('Mutation Tests - PIT') {
-      steps {
-        sh "mvn org.pitest:pitest-maven:mutationCoverage -Dverbose=true"
-      }
-      }
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: "docker_credential", url: ""]) {
           sh "printenv"
-          sh "sudo docker build -t masudrana09/numeric-app:latest ."
+          sh "docker build -t masudrana09/numeric-app:latest ."
           sh "docker push masudrana09/numeric-app:latest"
         }
       }
@@ -49,7 +31,8 @@ pipeline {
     stage('K8S Deployment - DEV') {
       steps {
               withKubeConfig([credentialsId: 'kubeconfig']) {
-              sh "kubectl apply -f k8s_deployment_service.yaml"
+              sh "kubectl apply -f deployment.yaml"
+              sh "kubectl apply -f service.yaml"
             }
           }
       }

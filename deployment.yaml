@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devsecops-deployment
+  labels:
+    app: devsecops
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devsecops
+  template:
+    metadata:
+      labels:
+          app: devsecops-pod
+    spec:
+      containers:
+        - name: devsecops-container
+          image: masudrana09/numeric-app:latest
+          workingDir: /home/k8s-pipeline
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 3000
