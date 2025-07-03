@@ -14,6 +14,7 @@ spec:
       labels:
           app: devsecops
     spec:
+      serviceAccountName: default
       containers:
         - name: devsecops-container
           image: masudrana09/numeric-app:latest
