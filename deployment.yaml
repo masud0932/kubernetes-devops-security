@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-          app: devsecops-pod
+          app: devsecops
     spec:
       containers:
         - name: devsecops-container

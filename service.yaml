@@ -6,7 +6,7 @@ metadata:
     app: devsecops
 spec:
   selector:
-    app: devsecops-pod
+    app: devsecops
   ports:
     - port: 8081
       targetPort: 8081
