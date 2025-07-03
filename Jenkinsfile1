@@ -22,6 +22,7 @@ pipeline {
 stage('Docker Build and Push') {
   steps {
     withDockerRegistry([credentialsId: "docker_credential", url: ""]) {
+        sh "ls -l"
         sh "ls -l target"
         sh "docker build -t masudrana09/numeric-app:latest ."
         sh "docker push masudrana09/numeric-app:latest"
