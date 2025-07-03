@@ -2,16 +2,15 @@
 
 #k8s-deployment.sh
 
-kubectl apply -f k8s_deployment_service.yaml
+kubectl -n default get deployment devsecops-deployment > /dev/null
 
-#kubectl -n default get deployment ${deploymentName} > /dev/null
-
-#if [[ $? -ne 0 ]]; then
-    #echo "deployment ${deploymentName} doesnt exist"
-    #kubectl -n default apply -f k8s_deployment_service.yaml
-#else
-    #echo "deployment ${deploymentName} exist"
-    #echo "image name - ${imageName}"
-    #kubectl -n default set image deploy ${deploymentName} ${containerName}=${imageName} --record=true
-#fi
+if [[ $? -ne 0 ]]; then
+    echo "deployment devsecops-deployment doesn't exist"
+    kubectl -n default apply -f deployment.yaml
+    kubectl -n default apply -f service.yaml
+else
+    echo "deployment devsecops-deployment exist"
+    echo "image name - masudrana09/numeric-app:latest"
+    kubectl -n default set image deploy devsecops-deployment devsecops-container=masudrana09/numeric-app:latest --record=true
+fi
 
