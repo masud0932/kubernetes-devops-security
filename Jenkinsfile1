@@ -23,6 +23,7 @@ pipeline {
       steps {
         withDockerRegistry([credentialsId: "docker_credential", url: ""]) {
           sh "printenv"
+          sh "cd k8s-Deployment/"
           sh "docker build -t masudrana09/numeric-app:latest ."
           sh "docker push masudrana09/numeric-app:latest"
         }
