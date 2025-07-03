@@ -14,7 +14,7 @@ WORKDIR /home/k8s-user
 COPY ${JAR_FILE} /home/k8s-user/app.jar
 
 # Set permissions
-RUN chown -R 1000:3000 /home/k8s-user
+#RUN chown -R 1000:3000 /home/k8s-user
 
 # Expose application port
 EXPOSE 8081
