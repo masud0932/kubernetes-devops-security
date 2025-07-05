@@ -110,12 +110,12 @@ stage('Docker Build and Push') {
       steps {
         parallel(
           "Deployment": {
-            withKubeConfig([credentialsId: 'kubeconfig-prod']) {
+            withKubeConfig([credentialsId: 'kubeconfig']) {
               sh "bash k8s-deployment-prod.sh"
             }
           },
           "Rollout Status": {
-            withKubeConfig([credentialsId: 'kubeconfig-prod']) {
+            withKubeConfig([credentialsId: 'kubeconfig']) {
               sh "bash k8s-deployment-rollout-status-prod.sh"
             }
           }
