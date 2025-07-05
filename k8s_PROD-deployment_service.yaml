@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devsecops-deployment
+  labels:
+    app: devsecops
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: devsecops
+  template:
+    metadata:
+      labels:
+          app: devsecops
+    spec:
+      volumes:
+        - name: config-volume
+          emptyDir: {}
+      serviceAccountName: default
+      containers:
+        - name: devsecops-container
+          image: masudrana09/numeric-app:latest
+          volumeMounts:
+            - name: config-volume
+              mountPath: /tmp
+          #workingDir: /home/k8s-user
+          securityContext:
+            capabilities:
+              drop:
+               - NET_RAW   //https://www.aquasec.com/blog/dns-spoofing-kubernetes-clusters/
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            runAsUser: 1000
+            runAsGroup: 3000
+            allowPrivilegeEscalation: false
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"  
