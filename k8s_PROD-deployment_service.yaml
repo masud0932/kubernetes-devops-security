@@ -41,3 +41,20 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"  
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: devsecops-service
+  labels:
+    app: devsecops
+spec:
+  selector:
+    app: devsecops
+  ports:
+    - port: 8081
+      targetPort: 8081
+      protocol: TCP
+  type: ClusterIP              
