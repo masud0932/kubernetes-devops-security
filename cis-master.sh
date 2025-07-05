@@ -1,7 +1,7 @@
 #!/bin/bash
 #cis-master.sh
 
-total_fail=$(kube-bench master --check 1.1.1,1.1.1 --json | jq .[].total_fail)
+total_fail=$(./kube-bench run master --check 1.1.1,1.1.1 --json | jq .[].total_fail)
 
 if [[ "$total_fail" -ne 0 ]];
         then
