@@ -55,14 +55,7 @@ stage('Docker Build and Push') {
         )
       }
     }
-    //stage('K8S Deployment - DEV') {
-      //steps {
-        //      withKubeConfig([credentialsId: 'kubeconfig']) {
-          //    sh "kubectl apply -f deployment.yaml"
-            //  sh "kubectl apply -f service.yaml"
-         //   }
-    //      }
-    //  }
+
   stage('K8S Deployment - DEV') {
       steps {
         parallel(
@@ -93,6 +86,21 @@ stage('Docker Build and Push') {
             }
             throw e
           }
+        }
+      }
+    }
+      stage('K8S CIS Benchmark') {
+      steps {
+        script {
+          parallel(
+            "Master": {
+              sh "bash cis-master.sh"
+            },
+            "Kubelet": {
+              sh "bash cis-kubelet.sh"
+            }
+          )
+
         }
       }
     }
